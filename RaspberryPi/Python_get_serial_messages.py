@@ -6,7 +6,7 @@ import re
 # Vitesse de baud : 9600
 # Timeout en lecture : 1 sec
 # Timeout en écriture : 1 sec
-with serial.Serial(port="COM6", \
+with serial.Serial(port="COM3", \
                    baudrate=9600, \
                    timeout=1, \
                    writeTimeout=1) \
