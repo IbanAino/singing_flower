@@ -1,6 +1,6 @@
 # [EN] Installation insctructions[FR] Instructions d'installation [CA] Instrucciones de instalación
 
-[ENGLISH]
+![Alt text](Ressources/EN.png?raw=true "EN")
 
 Installation Instructions:
 
@@ -13,9 +13,13 @@ Installation Instructions:
 
 
 
-[FRANCAIS]
+![Alt text](Ressources/FR.png?raw=true "FR")
 
 ## Distribution Linux du RaspberryPi
+
+La distrubition Linux utilisée pour ce projet est Raspbian. L'installation est expliquée sur le site officiel de RaspberryPi :
+
+[https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up)
 
 ## Configurer le RaspberryPi pour activer le module de son HifiBerry Amp2
 
@@ -72,3 +76,7 @@ sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
 @lxterminal -e /home/pi/Desktop/Run_singing_flower.sh
 ```
 - Quitter et enregistrer les modifications
+
+
+
+![Alt text](Ressources/ES.png?raw=true "ES")
