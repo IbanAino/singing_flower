@@ -1,7 +1,8 @@
 :en:
 :fr:
-:+1:
 :es:
+
+![Alt text](../Rsc/fr.png?raw=true "FR")
 
 
 # [EN] Singing Flower [FR] Fleurs qui chantonnent [CA] Flores que cantan
