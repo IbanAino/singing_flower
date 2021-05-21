@@ -1,25 +1,25 @@
-![Alt text](../Ressources/EN.png?raw=true "EN") Installation insctructions
-
 ![Alt text](../Ressources/FR.png?raw=true "FR") Instructions d'installation
+
+![Alt text](../Ressources/EN.png?raw=true "EN") Installation insctructions
 
 ![Alt text](../Ressources/ES.png?raw=true "ES") Instrucciones de instalación
 
-# [EN] Installation insctructions [FR] Instructions d'installation [CA] Instrucciones de instalación
-
-![Alt text](../Ressources/EN.png?raw=true "EN")
-
-Installation Instructions:
-
-- Copy and paste the files **Python_get_serial_messages.py** and **Run_singing_flower.sh** on the Raspberry Pi desktop.
-- Launch a terminal and open the autostart file with the following command:
-   sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
-- Add this line at the end of the file:
-   @lxterminal -e /home/pi/Desktop/Run_singing_flower.sh
-- Exit and save changes
 
 
 
 ![Alt text](../Ressources/FR.png?raw=true "FR")
+
+## Vue d'ensemble du processus d'installation
+
+Le programme est codé en Python et tourne sur un RaspberryPi3.
+
+La première étape consiste à installer une distribution Linux sur le RaspberryPi.
+
+Ensuite il nous faut configurer les RaspberryPi pour pourvoir utiliser le module de son HifiBerry amp2.
+
+Plusieurs librairies python sont à installer, nottament mplayer qui permet de contrôler le son.
+
+Enfin il faut configurer le RaspberryPi pour qu'il lance le programme tout seul au démarrage, sans intervention humaine.
 
 ## Distribution Linux du RaspberryPi
 
@@ -27,7 +27,7 @@ La distrubition Linux utilisée pour ce projet est Raspbian. L'installation est 
 
 [https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up)
 
-## Configurer le RaspberryPi pour activer le module de son HifiBerry Amp2
+## Configuration du RaspberryPi pour activer le module de son HifiBerry Amp2
 
 Par défaut le RaspberryPi n'envoie pas la son au module HifiBerry. Il faut donc le configurer.
 
@@ -69,7 +69,7 @@ lirc = no
 
 ## Lancer le programme automatiquement au démarrage
 
-Nous sohaitons que le programme se lance automatiquement lors du démarrage du RaspberryPi.
+Nous sohaitons que le programme se lance automatiquement lors du démarrage du RaspberryPi. Pour cela nous allons confugrer le fichier autostart du RaspberryPi afin de lancer le code Python dans un terminal.
 
 - Copier et coller les fichiers **Python_get_serial_messages.py** et **Run_singing_flower.sh** sur le bureau du Raspberry Pi.
 
@@ -83,6 +83,18 @@ sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
 ```
 - Quitter et enregistrer les modifications
 
+# [EN] Installation insctructions [FR] Instructions d'installation [CA] Instrucciones de instalación
+
+![Alt text](../Ressources/EN.png?raw=true "EN")
+
+Installation Instructions:
+
+- Copy and paste the files **Python_get_serial_messages.py** and **Run_singing_flower.sh** on the Raspberry Pi desktop.
+- Launch a terminal and open the autostart file with the following command:
+   sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
+- Add this line at the end of the file:
+   @lxterminal -e /home/pi/Desktop/Run_singing_flower.sh
+- Exit and save changes
 
 
 ![Alt text](../Ressources/ES.png?raw=true "ES")
