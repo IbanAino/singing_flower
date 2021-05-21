@@ -1,9 +1,6 @@
-:en:
-:fr:
-:es:
-
+![Alt text](Ressources/EN.png?raw=true "EN")
 ![Alt text](Ressources/FR.png?raw=true "FR")
-
+![Alt text](Ressources/ES.png?raw=true "ES")
 
 # [EN] Singing Flower [FR] Fleurs qui chantonnent [CA] Flores que cantan
 
