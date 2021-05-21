@@ -1,10 +1,10 @@
-![Alt text](../Ressources/EN.png?raw=true "EN")
+![Alt text](../Ressources/EN.png?raw=true "EN") Installation insctructions
 
-![Alt text](../Ressources/FR.png?raw=true "FR")
+![Alt text](../Ressources/FR.png?raw=true "FR") Instructions d'installation
 
-![Alt text](../Ressources/ES.png?raw=true "ES")
+![Alt text](../Ressources/ES.png?raw=true "ES") Instrucciones de instalación
 
-# [EN] Installation insctructions[FR] Instructions d'installation [CA] Instrucciones de instalación
+# [EN] Installation insctructions [FR] Instructions d'installation [CA] Instrucciones de instalación
 
 ![Alt text](../Ressources/EN.png?raw=true "EN")
 
@@ -32,24 +32,24 @@ La distrubition Linux utilisée pour ce projet est Raspbian. L'installation est 
 Par défaut le RaspberryPi n'envoie pas la son au module HifiBerry. Il faut donc le configurer.
 
 - Ouvrir le fichier de configuration avec la commande suivante :
-'''
+```
 sudo nano /boot/config.txt
-'''
+```
 - Supprimer la ligne suivante :
-'''
+```
 dtparam=audio=on
-'''
+```
 - Ecrire la ligne suivante :
-'''
+```
 dtoverlay=hifiberry-dacplus
-'''
+```
 - Quitter l'éditeur de texte avec la commande **ctrl+x**, confirmez les modifications avec la lettre **o** puis tapez **Entrer** pour valider.
 
 Le RaspberryPi est maintenant configuré pour utiliser le module HifiBerry.
 
 ## Librairie Python pour le son
 
-Pour lancer des sons sur le module HifiBerry nous utilisons le module Python mplayer.
+Pour lancer des sons sur le module HifiBerry nous utilisons le module Python **mplayer**.
 
 - Pour l'installer, lancer la commande suivante dans un terminal :
 ```
@@ -69,7 +69,7 @@ lirc = no
 
 ## Lancer le programme automatiquement au démarrage
 
-La dernière étape de l'installation consiste
+Nous sohaitons que le programme se lance automatiquement lors du démarrage du RaspberryPi.
 
 - Copier et coller les fichiers **Python_get_serial_messages.py** et **Run_singing_flower.sh** sur le bureau du Raspberry Pi.
 
