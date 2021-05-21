@@ -1,6 +1,12 @@
+![Alt text](../Ressources/EN.png?raw=true "EN")
+
+![Alt text](../Ressources/FR.png?raw=true "FR")
+
+![Alt text](../Ressources/ES.png?raw=true "ES")
+
 # [EN] Installation insctructions[FR] Instructions d'installation [CA] Instrucciones de instalación
 
-![Alt text](Ressources/EN.png?raw=true "EN")
+![Alt text](../Ressources/EN.png?raw=true "EN")
 
 Installation Instructions:
 
@@ -13,7 +19,7 @@ Installation Instructions:
 
 
 
-![Alt text](Ressources/FR.png?raw=true "FR")
+![Alt text](../Ressources/FR.png?raw=true "FR")
 
 ## Distribution Linux du RaspberryPi
 
@@ -79,4 +85,4 @@ sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
 
 
 
-![Alt text](Ressources/ES.png?raw=true "ES")
+![Alt text](../Ressources/ES.png?raw=true "ES")
