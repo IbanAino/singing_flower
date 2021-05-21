@@ -1,4 +1,5 @@
 :fr:
+:+1:
 
 # [EN] Singing Flower [FR] Fleurs qui chantonnent [CA] Flores que cantan
 
