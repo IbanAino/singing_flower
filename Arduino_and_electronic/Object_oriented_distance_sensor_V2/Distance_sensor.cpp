@@ -5,14 +5,13 @@
 const int numReadings = 10;
 
 //*** CONSTRUCTOR ***
-Distance_sensor::Distance_sensor (int pin_trig, int pin_echo) {
+Distance_sensor::Distance_sensor (int pin_trig, int pin_echo, int maxDistance) {
   this -> pin_trig = pin_trig;
   this -> pin_echo = pin_echo;
-
   pinMode(pin_trig, OUTPUT);
   pinMode(pin_echo, INPUT);
 
-  //readings = new int[numReadings];
+  this -> maxDistance = maxDistance;
 }
   
 //*** FUNCTIONS ***
@@ -31,19 +30,20 @@ uint32_t Distance_sensor::get_distance_measurement(){
   // Calculating the distance
   measured_distance = sound_journey_duration*0.034/2;
   // Prints the distance on the Serial Monitor
-  //Serial.print("Distance: ");
-  if (measured_distance > 500){
-    measured_distance = old_measured_distance;
+
+  if (measured_distance > maxDistance){
+    //measured_distance = 800;
+    return(800);
   }else if (measured_distance < 1){
     measured_distance = old_measured_distance;
-  }else{
+  }//else{
     measured_distance = this -> compute_sliding_mean(measured_distance); 
-    if (measured_distance > 500){
-      measured_distance = 500;
+    if (measured_distance > maxDistance){
+      measured_distance = 800;
     }else if (measured_distance < 1){
-      measured_distance = 1;
+      measured_distance = old_measured_distance;
     }  
-  }
+  //}
   return(measured_distance);
 }
 

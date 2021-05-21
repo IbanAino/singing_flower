@@ -8,7 +8,7 @@ class Distance_sensor
 {
   public:
   //*** CONSTRUCTOR ***
-  Distance_sensor (int pin_trig, int pin_echo);
+  Distance_sensor (int pin_trig, int pin_echo, int maxDistance);
 
   //*** PUBLIC FUNCTIONS ***
   uint32_t get_distance_measurement();
@@ -24,10 +24,11 @@ class Distance_sensor
   //*** PRIVATE VARIABLES ***
   uint32_t measured_distance;
   uint32_t sound_journey_duration;
+  int maxDistance;
 
   // Variables for the sliding mean computation
-  int numReadings = 20;
-  int readings [20];
+  int numReadings = 70;
+  int readings [70];
   //int *readings;
   int readIndex = 0;
   long total = 0;

@@ -4,7 +4,7 @@
 
 ![Alt text](Ressources/ES.png?raw=true "ES")
 
-# [FR] Fleurs qui chantonnent [EN] Singing Flower [CA] Flores que cantan
+# [FR] :blossom: Fleurs qui chantonnent [EN] :tulip: Singing Flower [CA] :cherry_blossom: Flores que cantan
 
 ![Alt text](Ressources/FR.png?raw=true "FR")
 
