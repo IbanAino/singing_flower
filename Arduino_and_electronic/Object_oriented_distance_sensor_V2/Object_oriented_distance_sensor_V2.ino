@@ -11,7 +11,7 @@
 #define pin_trig_sensor_4 9
 #define pin_echo_sensor_4 10
 
-Distance_sensor sensor_1(pin_trig_sensor_1, pin_echo_sensor_1, 100);
+Distance_sensor sensor_1(pin_trig_sensor_1, pin_echo_sensor_1, 500);
 Distance_sensor sensor_2(pin_trig_sensor_2, pin_echo_sensor_2, 500);
 Distance_sensor sensor_3(pin_trig_sensor_3, pin_echo_sensor_3, 500);
 Distance_sensor sensor_4(pin_trig_sensor_4, pin_echo_sensor_4, 500);
@@ -37,6 +37,7 @@ void loop() {
       if(i < 3){
         Serial.print(",");
       }
+      delay(8);
     }
     Serial.println();
   }

@@ -1,6 +1,8 @@
 #ifndef Distance_sensor_h
 #define Distance_sensor_h
 
+const int numReadings = 20;
+
 //*** LIBRARIES ***
 #include <arduino.h>
 
@@ -27,9 +29,7 @@ class Distance_sensor
   int maxDistance;
 
   // Variables for the sliding mean computation
-  int numReadings = 70;
-  int readings [70];
-  //int *readings;
+  int readings [numReadings];
   int readIndex = 0;
   long total = 0;
 };

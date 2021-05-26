@@ -1,9 +1,6 @@
 #include "Distance_sensor.h"
 #include <arduino.h>
 
-//*** ATTRIBUTS ***
-const int numReadings = 10;
-
 //*** CONSTRUCTOR ***
 Distance_sensor::Distance_sensor (int pin_trig, int pin_echo, int maxDistance) {
   this -> pin_trig = pin_trig;
@@ -26,24 +23,24 @@ uint32_t Distance_sensor::get_distance_measurement(){
   delayMicroseconds(10);
   digitalWrite(pin_trig, LOW);
   // Reads the echoPin, returns the sound wave travel time in microseconds
-  sound_journey_duration = pulseIn(pin_echo, HIGH);
+  sound_journey_duration = pulseIn(pin_echo, HIGH, 25000);
   // Calculating the distance
-  measured_distance = sound_journey_duration*0.034/2;
+  measured_distance = sound_journey_duration * 0.034 / 2;
   // Prints the distance on the Serial Monitor
 
   if (measured_distance > maxDistance){
-    //measured_distance = 800;
-    return(800);
+    measured_distance += 1;
+  }else if (measured_distance < 1){
+    measured_distance = old_measured_distance + 0.1;
+  }
+  
+  measured_distance = this -> compute_sliding_mean(measured_distance); 
+  if (measured_distance > maxDistance){
+    measured_distance = 800;
   }else if (measured_distance < 1){
     measured_distance = old_measured_distance;
-  }//else{
-    measured_distance = this -> compute_sliding_mean(measured_distance); 
-    if (measured_distance > maxDistance){
-      measured_distance = 800;
-    }else if (measured_distance < 1){
-      measured_distance = old_measured_distance;
-    }  
-  //}
+  } 
+  
   return(measured_distance);
 }
 
