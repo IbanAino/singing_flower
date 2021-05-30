@@ -14,6 +14,7 @@ class Distance_sensor
 
   //*** PUBLIC FUNCTIONS ***
   uint32_t get_distance_measurement();
+  void calibrate_max_distance();
 
   //*** PUBLIC VARIABLES ***
   int pin_trig;

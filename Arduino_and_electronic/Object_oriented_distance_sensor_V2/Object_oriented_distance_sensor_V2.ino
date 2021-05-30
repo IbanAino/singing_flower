@@ -23,6 +23,8 @@ Distance_sensor distance_sensors[] = {
  sensor_4
 };
 
+int incomingByte = 0;
+
 uint32_t sensors_distances_measuremes[4];
 
 void setup() {
@@ -31,14 +33,21 @@ void setup() {
 }
 
 void loop() {
-  while (true){
-    for (int i = 0; i < 4; i++){
-      Serial.print((String)distance_sensors[i].get_distance_measurement());
-      if(i < 3){
-        Serial.print(",");
-      }
-      delay(8);
+  for (int i = 0; i < 4; i++){
+    Serial.print((String)distance_sensors[i].get_distance_measurement());
+    if(i < 3){
+      Serial.print(",");
     }
-    Serial.println();
+    delay(8);
+  }
+  Serial.println();
+
+  incomingByte = Serial.read();
+
+  if (incomingByte == 111){
+    Serial.print("******* CALIBRATION *******");
+    for (int i = 0; i < 4; i++){
+      distance_sensors[i].calibrate_max_distance();
+    }
   }
 }

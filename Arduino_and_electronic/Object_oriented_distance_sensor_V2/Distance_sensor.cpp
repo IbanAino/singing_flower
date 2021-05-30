@@ -36,7 +36,7 @@ uint32_t Distance_sensor::get_distance_measurement(){
   
   measured_distance = this -> compute_sliding_mean(measured_distance); 
   if (measured_distance > maxDistance){
-    measured_distance = 800;
+    measured_distance = 700;
   }else if (measured_distance < 1){
     measured_distance = old_measured_distance;
   } 
@@ -63,4 +63,26 @@ uint32_t Distance_sensor::compute_sliding_mean(long distance){
   average = total / numReadings;
 
   return average;
+}
+
+
+void Distance_sensor::calibrate_max_distance(){
+  uint32_t total = 0;
+
+  delay(100);
+  get_distance_measurement();
+   delay(100);
+   
+  for (int i = 0; i < 20; i++){
+    total += get_distance_measurement();
+    delay(10);
+  }
+
+  maxDistance = (total / 20) - 10;
+    
+  if (maxDistance > 700){
+    calibrate_max_distance();
+  }
+
+  Serial.println(maxDistance);
 }
