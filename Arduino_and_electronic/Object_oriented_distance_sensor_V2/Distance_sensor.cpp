@@ -17,7 +17,7 @@ uint32_t Distance_sensor::get_distance_measurement(){
   uint32_t old_measured_distance = measured_distance;
   // Clears the trigPin
   digitalWrite(pin_trig, LOW);
-  delayMicroseconds(2);
+  delayMicroseconds(50);
   // Sets the pin_trig on HIGH state for 10 micro seconds
   digitalWrite(pin_trig, HIGH);
   delayMicroseconds(10);
@@ -26,14 +26,19 @@ uint32_t Distance_sensor::get_distance_measurement(){
   sound_journey_duration = pulseIn(pin_echo, HIGH, 25000);
   // Calculating the distance
   measured_distance = sound_journey_duration * 0.034 / 2;
+  //measured_distance = sound_journey_duration / 29 / 2;
   // Prints the distance on the Serial Monitor
 
+
+  //--- Ignore extrem values and  ---
   if (measured_distance > maxDistance){
-    measured_distance += 1;
+    measured_distance = maxDistance;
   }else if (measured_distance < 1){
-    measured_distance = old_measured_distance + 0.1;
+    measured_distance = old_measured_distance + 10;
   }
-  
+  old_measured_distance = measured_distance;
+
+  //--- Make average and keep values between min and max ---
   measured_distance = this -> compute_sliding_mean(measured_distance); 
   if (measured_distance > maxDistance){
     measured_distance = 700;
