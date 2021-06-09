@@ -9,6 +9,11 @@ Distance_sensor::Distance_sensor (int pin_trig, int pin_echo, int maxDistance) {
   pinMode(pin_echo, INPUT);
 
   this -> maxDistance = maxDistance;
+
+  for (int i = 0; i < numReadings; i++){
+    readings [i] = 150;
+  }
+  total = 150 * numReadings;
 }
   
 //*** FUNCTIONS ***
@@ -17,7 +22,7 @@ uint32_t Distance_sensor::get_distance_measurement(){
   uint32_t old_measured_distance = measured_distance;
   // Clears the trigPin
   digitalWrite(pin_trig, LOW);
-  delayMicroseconds(50);
+  delayMicroseconds(10);
   // Sets the pin_trig on HIGH state for 10 micro seconds
   digitalWrite(pin_trig, HIGH);
   delayMicroseconds(10);
@@ -40,7 +45,7 @@ uint32_t Distance_sensor::get_distance_measurement(){
 
   //--- Make average and keep values between min and max ---
   measured_distance = this -> compute_sliding_mean(measured_distance); 
-  if (measured_distance > maxDistance){
+  if (measured_distance >= maxDistance){
     measured_distance = 700;
   }else if (measured_distance < 1){
     measured_distance = old_measured_distance;
@@ -73,21 +78,44 @@ uint32_t Distance_sensor::compute_sliding_mean(long distance){
 
 void Distance_sensor::calibrate_max_distance(){
   uint32_t total = 0;
-
-  delay(100);
-  get_distance_measurement();
-   delay(100);
-   
-  for (int i = 0; i < 20; i++){
-    total += get_distance_measurement();
+  delay(20);
+  //for (int i = 0; i < 20; i++){
+    digitalWrite(pin_trig, LOW);
+    delayMicroseconds(10);
+    digitalWrite(pin_trig, HIGH);
+    delayMicroseconds(10);
+    digitalWrite(pin_trig, LOW);
+    sound_journey_duration = pulseIn(pin_echo, HIGH);
+    measured_distance = sound_journey_duration * 0.034 / 2;
+    total += measured_distance;
     delay(10);
-  }
+  //}
 
-  maxDistance = (total / 20) - 10;
+  //maxDistance = (total / 20) - 30;
+    maxDistance = total - 20;
     
   if (maxDistance > 700){
-    calibrate_max_distance();
+    Serial.println("Try again - too big");
+    if (calibrationTryingCounter < 3){
+      calibrationTryingCounter++;
+      calibrate_max_distance();
+      return;
+    }
+    else{
+      maxDistance = 700;
+    }
   }
-
+  
+  if (maxDistance < 10){
+    Serial.println("Try again - too few");
+    if (calibrationTryingCounter < 3){
+      calibrationTryingCounter++;
+      calibrate_max_distance();
+      return;
+    }
+    else{
+      maxDistance = 700;
+    }
+  }
   Serial.println(maxDistance);
 }

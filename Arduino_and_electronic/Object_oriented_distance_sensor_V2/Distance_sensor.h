@@ -1,7 +1,7 @@
 #ifndef Distance_sensor_h
 #define Distance_sensor_h
 
-const int numReadings = 20;
+const int numReadings = 10;
 
 //*** LIBRARIES ***
 #include <arduino.h>
@@ -19,6 +19,7 @@ class Distance_sensor
   //*** PUBLIC VARIABLES ***
   int pin_trig;
   int pin_echo;
+  int calibrationTryingCounter = 0;
   
   private:
   //*** PRIVATE FUNCTIONS ***
@@ -28,6 +29,7 @@ class Distance_sensor
   uint32_t measured_distance;
   uint32_t sound_journey_duration;
   int maxDistance;
+
 
   // Variables for the sliding mean computation
   int readings [numReadings];

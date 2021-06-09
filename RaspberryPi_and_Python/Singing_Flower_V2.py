@@ -49,8 +49,8 @@ def manage_Sound_volume(received_values):
     
     if volume > 60:
         volume = 60
-    elif volume < 10:
-        volume = 10
+    elif volume < 0:
+        volume = 0
     
     sound_player.volume = volume
     
@@ -91,8 +91,26 @@ if __name__ == "__main__":
                         sound_player_2.loadfile("/home/pi/Desktop/sound/calibration_begin.mp3")
                         sound_player_2.volume = 60
                         time.sleep(14)
-                        serial_connexion.write(bytes("o", 'utf-8'))
-                        time.sleep(0.05)
+                        
+                        try_calibration_counter = 0
+                        while sensors_calibration_done == False:
+                            try:
+                                
+                                # the buffer immediately receives data, so ensure it is empty before writing command
+                                while serial_connexion.inWaiting()>0:
+                                    serial_connexion.read(1)
+                                    
+                                serial_connexion.write(bytes("o", 'utf-8'))
+                                time.sleep(2)
+                                sensors_calibration_done == True
+                            except:
+                                print("ERROR - calibration failed.")
+                                try_calibration_counter = try_calibration_counter + 1
+                                if try_calibration_counter == 4:
+                                    break
+                                
+                        
+                        
                         sound_player_2.volume = 100
                         sound_player_2.loadfile("/home/pi/Desktop/sound/calibration_done.mp3")
                         time.sleep(3)
