@@ -96,7 +96,7 @@ sudo chmod 777 /home/pi/desktop/Run_singing_flower.sh
 
 ![Alt text](../Ressources/EN.png?raw=true "EN")
 
-## Overview of the intallation processus
+## Overview of the intallation process
 
 The software is a Python program tha run on a RaspberryPi3 platform.
 
@@ -140,7 +140,7 @@ dtoverlay=hifiberry-dacplus
 
 The Raspberry Pi is now configurated to use the HifiBerry module.
 
-## Automatic code launch at boot/config
+## Automatic code launch at boot
 
 We want the programm to launch automatically at the Raspberry Pi boot. We have to configure the autostart file of the Raspberry Pi to launch the Python code inside a terminal.
 
@@ -159,4 +159,20 @@ By deffault, the file **Run_singing_flower.sh** is not executable. Set its right
 sudo chmod 777 /home/pi/desktop/Run_singing_flower.sh
 ```
 
+---
+
 ![Alt text](../Ressources/ES.png?raw=true "ES")
+
+## descripción general del proceso de instalación
+
+## Distribucion Linux en el RaspberryPi
+
+La distribucion Linux utilizada para este proyecto es Debian. La installacion esta explicanda en el sitio official de Raspberry Pi :
+
+[https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up)
+
+## descargado de los códigos fuente en el Raspberry Pi
+
+## Configuration del RaspberryPi para activar el sondido modulo HifiBerry Amp2
+
+## Comenzar automáticamente el programmo al enciende de la computadora
