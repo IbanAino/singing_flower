@@ -23,4 +23,4 @@ The artwork is composed by a big singing flower. When we get closer from it, it 
 La obra se compone de una grande flore que canta. Cuándo nos acercarnos de elle, canta menos fuerte.
 
 ![Alt text](Ressources/Flower.png?raw=true "Flower")
-![Alt text](Ressources/Flower_Coline.jpg?raw=false "Flower and Coline")
+![Alt text](Ressources/Flower_Coline.JPG?raw=false "Flower and Coline")
