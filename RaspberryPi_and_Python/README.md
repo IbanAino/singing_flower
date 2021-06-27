@@ -4,8 +4,7 @@
 
 ![Alt text](../Ressources/ES.png?raw=true "ES") Instrucciones de instalación
 
-
-
+---
 
 ![Alt text](../Ressources/FR.png?raw=true "FR")
 
@@ -14,6 +13,8 @@
 Le programme est codé en Python et tourne sur un RaspberryPi3.
 
 La première étape consiste à installer une distribution Linux sur le RaspberryPi.
+
+Une fois le Raspberry Pi opérationnel, nous pouvons récupérer le code source sur GitHub pour le mettre sur le RaspberryPi.
 
 Ensuite il nous faut configurer les RaspberryPi pour pourvoir utiliser le module de son HifiBerry amp2.
 
@@ -26,6 +27,11 @@ Enfin il faut configurer le RaspberryPi pour qu'il lance le programme tout seul 
 La distrubition Linux utilisée pour ce projet est Raspbian. L'installation est expliquée sur le site officiel de RaspberryPi :
 
 [https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up)
+
+## Téléchargement des codes sources sur le Raspberry Pi
+
+Copier et coller les fichiers **Python_get_serial_messages.py** et **Run_singing_flower.sh** sur le bureau du Raspberry Pi.
+
 
 ## Configuration du RaspberryPi pour activer le module de son HifiBerry Amp2
 
@@ -59,7 +65,7 @@ Afin de d'évier le message d'erreur suivant ** ** nous allons configurer mplaye
 
 - Ouvrir le fichier de configuration de mplayer avec la commande suivante :
 ```
-sudo nano HOME/.mplayer/config
+sudo nano home/.mplayer/config
 ```
 - Ajouter cette ligne au fichier :
 ```
@@ -69,9 +75,7 @@ lirc = no
 
 ## Lancer le programme automatiquement au démarrage
 
-Nous sohaitons que le programme se lance automatiquement lors du démarrage du RaspberryPi. Pour cela nous allons confugrer le fichier autostart du RaspberryPi afin de lancer le code Python dans un terminal.
-
-- Copier et coller les fichiers **Python_get_serial_messages.py** et **Run_singing_flower.sh** sur le bureau du Raspberry Pi.
+Nous sohaitons que le programme se lance automatiquement lors du démarrage du RaspberryPi. Pour cela nous allons configrer le fichier autostart du RaspberryPi afin de lancer le code Python dans un terminal.
 
 - Lancer une console et ouvrir le fichier autostart avec la commande suivante :
 ```
@@ -81,20 +85,78 @@ sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
 ```
 @lxterminal -e /home/pi/Desktop/Run_singing_flower.sh
 ```
-- Quitter et enregistrer les modifications
+- Quitter l'éditeur de texte avec la commande **ctrl+x**, confirmez les modifications avec la lettre **o** puis tapez **Entrer** pour valider.
 
-# [EN] Installation insctructions [FR] Instructions d'installation [CA] Instrucciones de instalación
+Par défaut le fichier **Run_singing_flower.sh** n'est pas exécutable. Régler ses droits avec la commande suivante :
+```
+sudo chmod 777 /home/pi/desktop/Run_singing_flower.sh
+```
+
+---
 
 ![Alt text](../Ressources/EN.png?raw=true "EN")
 
-Installation Instructions:
+## Overview of the intallation processus
 
-- Copy and paste the files **Python_get_serial_messages.py** and **Run_singing_flower.sh** on the Raspberry Pi desktop.
-- Launch a terminal and open the autostart file with the following command:
-   sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
+The software is a Python program tha run on a RaspberryPi3 platform.
+
+The first step consist on install a Linux distribition on the Raspberry Pi.
+
+Once the Raspberry Pi is ready, we can get the source code on Gitlab an download them on the RAspberry Pi.
+
+Then we have to configure the Raspberry Pi to use the sound module HifiBerry amp2.
+
+Several libraries have to be installed, for example the module mplayer to manage sound.
+
+Finally we have to set the Raspberry Pi in order to launch the program automatically at boot, without human intervention.
+
+## Linux distribution for RaspberryPi
+
+the Linux distribition used for this project is Raspbian. The installation instructions are explain on the officail RasperryPi website:
+
+[https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up](https://projects.raspberrypi.org/en/projects/raspberry-pi-setting-up)
+
+## Download source codes on Raspberry Pi
+
+Copy and paste the files **Python_get_serial_messages.py** and **Run_singing_flower.sh** on the Raspberry Pi desktop.
+
+## RaspberryPi Configuration to activate the sound module HifiBerry Amp2
+
+By deffault the RAspberry Pi doesn't send any sound to the module HifiBerry. We have to configure it.
+
+- Open the configuration file with the following command:
+```
+sudo nano /boot/config.txt
+```
+- Delete the following line:
+```
+dtparam=audio=on
+```
+- Write the following line:
+```
+dtoverlay=hifiberry-dacplus
+```
+- Leave the text editor with the command **ctrl+x**, confirm the modifications withe the letter **o** and type **Enter** to validate.
+
+The Raspberry Pi is now configurated to use the HifiBerry module.
+
+## Automatic code launch at boot/config
+
+We want the programm to launch automatically at the Raspberry Pi boot. We have to configure the autostart file of the Raspberry Pi to launch the Python code inside a terminal.
+
+- Open a terminal an open the configuration file with the following command:
+```
+sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
+```
 - Add this line at the end of the file:
-   @lxterminal -e /home/pi/Desktop/Run_singing_flower.sh
-- Exit and save changes
+```
+@lxterminal -e /home/pi/Desktop/Run_singing_flower.sh
+```
+- Leave the text editor with the command **ctrl+x**, confirm the modifications withe the letter **o** and type **Enter** to validate.
 
+By deffault, the file **Run_singing_flower.sh** is not executable. Set its rights with the following command:
+```
+sudo chmod 777 /home/pi/desktop/Run_singing_flower.sh
+```
 
 ![Alt text](../Ressources/ES.png?raw=true "ES")
