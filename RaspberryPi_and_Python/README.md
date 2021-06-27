@@ -30,7 +30,7 @@ La distrubition Linux utilisée pour ce projet est Raspbian. L'installation est 
 
 ## Téléchargement des codes sources sur le Raspberry Pi
 
-Copier et coller les fichiers **Python_get_serial_messages.py** et **Run_singing_flower.sh** sur le bureau du Raspberry Pi.
+Copier et coller les fichiers **Python_get_serial_messages.py** et **Run_singing_flower.sh** sur le bureau du Raspberry Pi. Copier aussi les dossier **sound** et **mplayer** sur le bureau.
 
 
 ## Configuration du RaspberryPi pour activer le module de son HifiBerry Amp2
@@ -118,7 +118,7 @@ the Linux distribition used for this project is Raspbian. The installation instr
 
 ## Download source codes on Raspberry Pi
 
-Copy and paste the files **Python_get_serial_messages.py** and **Run_singing_flower.sh** on the Raspberry Pi desktop.
+Copy and paste the files **Python_get_serial_messages.py** and **Run_singing_flower.sh** on the Raspberry Pi desktop. Download the repertories **sound** and **mplayer** on the desktop too.
 
 ## RaspberryPi Configuration to activate the sound module HifiBerry Amp2
 

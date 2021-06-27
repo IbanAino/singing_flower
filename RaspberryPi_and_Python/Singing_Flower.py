@@ -1,107 +1,171 @@
-'''
-[FR] FLEURS QUI CHANTONNENT
-[EN] SINGING FLOWER
-[CA] FLORES QUE CANTAN
+# -*- coding: utf-8 -*-
+"""
+Created on Sat Jun  5 18:24:21 2021
 
+@author: Iban
+"""
 
-
-
-
-'''
-
-import serial # [FR] Communication avec l'Arduino [EN] Communication with the Arduino [CA] Communicion con el Arduino
-import re # Regular Expressions [FR] Traduire les messages reçus l'arduino [EN] Translate messages received from the Arduino [CA] Traducir mensajer recivios del Arduino
-from mplayer import Player # [FR] Lire des fichiers audio [EN] Read audio files [CA] Leer archivos de sondido
+import serial
+import re
+from mplayer import Player
 import time
 
-def main():
+volume = 0.0
+programm_running = True
 
+
+
+def manage_sound_volume(sound_player, distance):
+    global volume
+    #new_volume = (smallest_value * 0.625) - 21.25
+    new_volume = (distance * 0.9) - 50
+    print("Computed volume: " + str(new_volume))
+
+    if volume >= new_volume:
+        volume = volume - 2
+    else:
+        volume = volume + 1
+    
+    if volume > 60:
+        volume = 60
+    elif volume < 0:
+        volume = 0
+    
+    sound_player.volume = volume
+    print("Final volume filtered: " + str(volume))
+
+
+
+def open_serial_connexion(serial_connexion):
+    connection = False
+    while connection == False: 
+        try:
+            serial_connexion = serial.Serial(port = 'COM7', \
+            #serial_connexion = serial.Serial(port = '/dev/ttyACM0', \
+                             baudrate = 9600, \
+                             timeout = 1)
+            print("serial is OK \n")
+            connection = True           
+        except:
+            print("serial not connected. \nCheck the Serial connection. \nTry again to connect.")
+            time.sleep(3)      
+    return(serial_connexion)
+
+
+
+def close_serial_connexion(serial_connexion):
+    serial_connexion.close()
+ 
+    
+    
+def read_distances_from_arduino(serial_connexion):
     try:
-        sound_player = Player()
-        sound_player.loadfile("/home/pi/Desktop/sound/voix.wav")
-        sound_player.loop = 0
-        
-        volume = 0.0
-        
-        with serial.Serial(port="/dev/ttyACM0", \
-                           baudrate=9600, \
-                           timeout=1, \
-                           writeTimeout=1) \
-                           as port_serie:
-                               
-            if port_serie.isOpen():
-                
-                while True:
-                    
-                    '''
-                    [FR] La première étape consiste à traiter les données reçues de l'Arduino pour en faire une liste de valeurs.
-                            Les Regular Expressions permettent d'avoir les valeurs séparées par une virgule.
-                            Ensuite la fonction split met les valeurs dans un tableau.
-                            Ces valeurs sont converties en float pour les calculs suivants.
-                    [EN] The first step consists on manage data from the Arduino to have a list of values.
-                            The Regular Expressions gives values separated by comas.
-                            Then the split function puts the values inside a table.
-                            The values are cast to float fot the nex computations.
-                    [CA] La primera etapa es de procesar datos recibio del Arduino para tener una lista de valores.
-                            Las Regular Expressions permittent de tener valores separadas por comas.
-                            Luego el function split pone las valores en una junta.
-                            Esos valores son convertidos en float par las proximas calculos.
-                    '''
-                    
-                    try:
-                        #port_serie.flush()
-                        received_values = str(port_serie.readline())
-                        received_values=re.sub("[^0-9,.]","",received_values)
-                        
-                        if received_values:
-                            values = received_values.split(',')
-                            print("Values: " + received_values)
-                            values_float = []
-                            
-                            for value in values:
-                                if (value):
-                                    values_float.append(float(value))
-                            
-                            '''
-                            [FR] La plus petite valeur est choisie.
-                                    Cette valeur est convertie en volume avec un coefficient.
-                                    
+        received_values = str(serial_connexion.readline())
+        if received_values:
+            return(received_values)
+		else:
+			return(0)
+    except:
+        print("ERROR - serial connexion broken \n")
+        return(0)
+    
+    
+    
+def get_smallest_value_from_measurements(measurements):
+    measurements = re.sub("[^0-9.]",",",measurements)
+    values = measurements.split(',')
+    print("Values: " + measurements)
+    values_float = []  
+    for value in values:
+        if (value):
+            values_float.append(float(value))
+    smallest_value = min(values_float)
+    print("Closer obstacle: " + str(smallest_value))
+    return(smallest_value)
 
-                            '''
-                            
-                            
-                         
-                            smallest_value = min(values_float)
 
-                            print("smallest_value: " + str(smallest_value))
-                            
-                            #new_volume = (smallest_value * 0.625) - 21.25
-                            new_volume = (smallest_value * 0.9) - 50
-                            
-                            
-                            if volume >= new_volume:
-                                volume = volume - 2
-                            else:
-                                volume = volume + 0.2
-                            
-                            if volume > 60:
-                                volume = 60
-                            elif volume < 10:
-                                volume = 10
-                            
-                            sound_player.volume = volume
-                            
-                            print("volume: " + str(volume))
-                            
-                            #time.sleep(0.2)
-                    except:
-                        print("ERROR - serial connexion with Arduino broken")
-                        time.sleep(1)
-                             
+def calibrate_distance_sensors(serial_connexion):
+    sound_player_2 = Player()
+    sound_player_2.loadfile("/home/pi/Desktop/sound/calibration_begin.mp3")
+    sound_player_2.volume = 60
+    time.sleep(10)
+    sensors_calibration_done = False    
+    try_calibration_counter = 0
+    
+    while sensors_calibration_done == False:
+        try:
+            # the buffer immediately receives data, so ensure it is empty before writing command
+            while serial_connexion.inWaiting()>0:
+                serial_connexion.read(1)  
+            serial_connexion.write(bytes("o", 'utf-8'))
+            time.sleep(4)
+            sensors_calibration_done == True
+        except:
+            print("ERROR - calibration failed.")
+            try_calibration_counter = try_calibration_counter + 1
+            if try_calibration_counter == 4:
+                return(False)
+            
+    sound_player_2.volume = 60
+    sound_player_2.loadfile("/home/pi/Desktop/sound/calibration_done.mp3")
+    time.sleep(3)
+    sound_player_2.quit()
+    sensors_calibration_done = True
+    return(True)
+    
+    
+def main():
+    global programm_running
+    
+    serial_connexion = object()
+    serial_connexion = open_serial_connexion(serial_connexion)
+    
+    while True:
+        result = calibrate_distance_sensors(serial_connexion)
+        if result is True:
+            break
+        else:
+            close_serial_connexion(serial_connexion)
+            open_serial_connexion(serial_connexion)
+            
+    sound_player = Player()
+    sound_player.loadfile("/home/pi/Desktop/sound/voix.wav")
+    sound_player.volume = 0.0
+    sound_player.loop = 0
+        
+    while programm_running is True:
+		measured_distances = read_distances_from_arduino   
+		if measured_distances == 0:
+			print("ERROR - cannot get data from Arduino.")
+            serial_connexion.close(serial_connexion)
+            serial_connexion = open_serial_connexion(serial_connexion)		
+		else:
+			distance = get_smallest_value_from_measurements(measured_distances)
+			manage_sound_volume(sound_player, distance)
+
+            
+    # Executed when the programm ends:
+    serial_connexion.close()
+    sound_player.quit()
+        
+        
+if __name__ == "__main__":
+    try:
+        main()
     except KeyboardInterrupt:
-        print("EXIT")
-        sound_player.quit()
-         
-                    
-if __name__=='__main__':
-    main()
+        programm_running = False
+
+        
+    
+    
+
+        
+            
+        
+    
+                        
+
+
+
+
+
