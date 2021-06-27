@@ -9,4 +9,4 @@
 
 #!/bin/bash
 sleep 3
-lxterminal -e python3 /home/pi/Desktop/Singing_flower.py
+lxterminal -e python3 /home/pi/Desktop/Singing_Flower.py
