@@ -16,7 +16,7 @@ La première étape consiste à installer une distribution Linux sur le Raspberr
 
 Une fois le Raspberry Pi opérationnel, nous pouvons récupérer le code source sur GitHub pour le mettre sur le RaspberryPi.
 
-Ensuite il nous faut configurer les RaspberryPi pour pourvoir utiliser le module de son HifiBerry amp2.
+Ensuite il nous faut configurer le RaspberryPi pour pourvoir utiliser le module de son HifiBerry amp2.
 
 Plusieurs librairies python sont à installer, nottament mplayer qui permet de contrôler le son.
 
@@ -89,7 +89,7 @@ sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
 
 Par défaut le fichier **Run_singing_flower.sh** n'est pas exécutable. Régler ses droits avec la commande suivante :
 ```
-sudo chmod 777 /home/pi/desktop/Run_singing_flower.sh
+sudo chmod 777 /home/pi/Desktop/Run_singing_flower.sh
 ```
 
 ---
@@ -156,7 +156,7 @@ sudo nano /etc/xdg/lxsession/LXDE-pi/autostart
 
 By deffault, the file **Run_singing_flower.sh** is not executable. Set its rights with the following command:
 ```
-sudo chmod 777 /home/pi/desktop/Run_singing_flower.sh
+sudo chmod 777 /home/pi/Desktop/Run_singing_flower.sh
 ```
 
 ---
